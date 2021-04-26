@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<%- include('../partials/admin_nav.ejs') %> 
+<div id="content">
+<h2>Calendar</h2>
+
+<div id="calendar">
+<% var today = new Date(); 
+var month = today.toLocaleString('default', { month: 'long' });
+var yr = today.getFullYear();
+var date = month +' ' + yr;
+%>
+<h3><%= date%></h3>
+<ul>    
+    <% if(events.length>0){ %>
+        <% events.forEach(event=>{
+            var dbeventDate = event.date.split('-');
+            var mon = today.getMonth() + 1;
+            if(dbeventDate[0]== yr && dbeventDate[1]== mon){        
+            %>
+    <li><%= event.name%> - [<%= event.date%>]</li>
+    <% } %>
+    <%}); %>
+    <%} else{ %>
+        <p style="text-align: center;">There are no events this month...</p>
+    <% }%>
+</ul>
+<div id="controls">
+    <button>&lt;</button>
+    <button>&gt;</button>
+</div>
+</div>
+
+</div>
+
+<%- include('../partials/footer.ejs') %>   
+</body>
+</html>

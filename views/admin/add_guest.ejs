@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<style>
+#eventContainer{
+    display: none;
+    flex-direction: column;
+    width: 20rem;}
+#eventContainer>input[type="text"]{
+    margin: .5em;
+}
+</style>
+<body>
+<%- include('../partials/admin_nav.ejs') %> 
+<div id="content">
+<a class="back" href="/events">&lt;&lt;</a>
+<h2>Add Guest</h2>
+<form action="/guests" method="post">
+    <label for="designation">Designation:</label>
+    <input type="text" name="designation" required>
+    <br>
+    <label for="firstname">First Name:</label>
+    <input type="text" name="firstname" required>
+    <br>
+    <label for="lastname">Last Name:</label>
+    <input type="text" name="lastname" required>
+ 	<br>
+ 	<label for="email">Email:</label>
+    <input type="text" name="email" required>
+ 	<br>
+ 	<label for="profession">Profession:</label>
+    <input type="text" name="profession" required>
+    <br>
+    <!-- <label for="affiliations">Affiliations:</label>
+    <input type="text" name="affiliations" required><button>+</button>
+    <br> -->
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" name="mobile"><br>
+    <label for="events">Events Attended:</label>
+    <select id="input_event">
+        <% events.forEach(event=>{ %>
+        <option value="<%= event.name%>"><%= event.name%></option>
+        <% })%>
+    </select>
+<button id="add_event">+</button>
+    <div id="eventContainer"></div>
+    <br>
+<!--     <label for="groups">Groups:</label>
+    <input type="text" name="groups" required><button>+</button>
+    <br> -->
+    <input type="submit" value="Create Guest">
+
+ </form>
+</div>
+<%- include('../partials/footer.ejs') %>   
+<script>
+    const add_event = document.querySelector('#add_event');
+    const input_event = document.querySelector('#input_event');
+    const eventContainer = document.querySelector('#eventContainer');
+    const form = document.querySelector("form");
+    var guests = {}
+
+    add_event.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const event = input_event.value;
+        if(event){
+        eventContainer.style.display = 'flex';
+        const x = document.createElement("input");
+        x.setAttribute("type", "text");
+        x.setAttribute("name", "events[]");
+        x.setAttribute("value", event);
+        eventContainer.appendChild(x);
+
+        if(guests.events){
+            guests.events.push({name:event}) 
+            }
+        else{
+                guests.events = [{name:event}]
+            }
+        }
+        });
+
+        const inputs = document.querySelectorAll("[name]");
+
+        inputs.forEach(input=>{
+            input.addEventListener('change', ()=>{
+            const designation = document.querySelector("[name = 'designation']").value;
+            const  firstname = document.querySelector("[name = 'firstname']").value;
+            const  lastname = document.querySelector("[name = 'lastname']").value;
+            const  email = document.querySelector("[name = 'email']").value;
+            const  profession = document.querySelector("[name = 'profession']").value;
+            const  mobile = document.querySelector("[name = 'mobile']").value;
+            guests.designation = designation;
+            guests.firstname = firstname;
+            guests.lastname = lastname;
+            guests.email = email;
+            guests.profession = profession;
+            guests.mobile = mobile;
+            })
+        })
+    
+       
+    form.addEventListener('submit',async(e)=>{
+        e.preventDefault();
+
+        const res = await fetch('/guests', {
+            method: 'POST',
+            body: JSON.stringify(guests),
+            headers: new Headers({'content-type': 'application/json'})
+            })
+            .then(response=>response.json())
+            .then(data => location.href = data.redirect)
+            .catch(err=> console.log(err));
+       })
+  
+</script> 
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<style>
+    #guestContainer{
+        display: none;
+        flex-direction: column;
+        width: 20rem;}
+    #guestContainer>input[type="text"]{
+        margin: .5em;
+    }
+    </style>
+<body>
+<%- include('../partials/admin_nav.ejs') %> 
+<div id="content">
+    <h2>Invites</h2>
+    <form>
+        <!-- make this a searchbar instead only accepts values from the database -->
+        <label for="event">Select Event:</label>
+        <select name="event" >
+            <% events.forEach(event=>{ %>
+            <option value=""><%= event.id%> | <%= event.name%></option>
+            <% })%>
+        </select><br>
+        <!-- todo: make it a clickable table with scroll for select group instead -->
+        <label>Select Group/s</label>
+        <select>
+            <option>None</option>
+            <option>VIP</option>
+        </select><button>+</button><br>
+         <!-- todo: make it a clickable table with scroll for select guests instead -->
+        <label for="guest">Select Guests:</label>
+        <select>
+            <% guests.forEach(guest=>{ var fullname = `${guest.id} | ${guest.designation}. ${guest.first_name} ${guest.last_name}` %>
+            <option value=""><%=  fullname%></option>
+            <% })%>
+        </select>
+        <div id="guestContainer"></div>
+        <br>
+        <label>Message:</label><br>
+        <!-- todo: populate text are with the selected event details -->
+        <textarea><%= 'Location:'%></textarea><br>
+        <input type="submit" name="" id="" value="Save Only">
+        <input type="submit" name="" id="" value="Save and Send">
+        <input type="reset" value="Clear">
+    </form>
+</div>
+<script>
+    const add_guest = document.querySelector('#add_guest');
+    const guest = document.querySelector('#guest');
+    const guestContainer = document.querySelector('#guestContainer');
+
+    add_guest.addEventListener('click', (e)=>{
+        e.preventDefault();
+        if(guest.value){
+        guestContainer.style.display = 'flex';
+        const x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+         x.setAttribute("value", guest.value);
+        guestContainer.appendChild(x)
+        }
+    });
+</script> 
+</body>
+</html>

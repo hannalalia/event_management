@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<%- include('../partials/admin_nav.ejs') %> 
+<div id="content">
+<div id="search_bar">
+    <h2>All Guests</h2>
+    <form>
+        <input type="text" placeholder="Search" name="search">
+        <label for="filter">Filter by:</label>
+        <select name="filter" id="">
+            <option value="">Groups</option>
+            <option value="">Profession</option>
+            <option value="">Affiliations</option>
+        </select>
+    </form>
+</div>
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Designation</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Profession</th>
+        <th>Affiliations</th>
+        <th>Events Attended</th>
+        <th>Groups</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <% if(guests.length>0){%>
+        <% guests.forEach(guest=> { %>
+        <tr>
+            <td><%= guest.id%></td>
+            <td><%= guest.designation%></td>
+            <td><%= guest.first_name%></td>
+            <td><%= guest.last_name%></td>
+            <td><%= guest.email%></td>
+            <td><%= guest.profession%></td>
+            <td><%= guest.events%></td>
+            <td><a class="tbl-links" href="/guest_events/<%= guest.id%>"></a></td>
+            <td><a class="tbl-links" href="3"></a></td>
+            <td><a id="delBtn" class="delete" data-doc="<%=guest.id %>">x</a></td>
+        </tr>
+        <% })%>
+        <% } else{%>
+        <tr><td colspan="10"> There are no guest to display...</td></tr>
+        <% }%>
+    </tbody>
+</table>
+<button class="btn-grey" type="submit" onclick="location.href='/add_guest'">Add Guest</button>
+</div>
+
+<%- include('../partials/footer.ejs') %> 
+<script>
+    const delBtns = document.querySelectorAll("#delBtn");
+       delBtns.forEach(delBtn =>{
+        delBtn.addEventListener("click", (e)=>{
+            const endpoint = `/guests/${delBtn.dataset.doc}`;
+            fetch(endpoint,{
+                method: 'DELETE'
+            })
+            .then(response=>response.json())
+            .then(data => location.href = data.redirect)
+            .catch(err=>console.log(err));
+        })
+    })
+   
+
+</script>  
+</body>
+</html>

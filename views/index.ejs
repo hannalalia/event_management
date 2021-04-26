@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<style>
+::-webkit-scrollbar {
+    display: none;
+}
+video{
+	top: 0;
+	position: absolute;
+	object-fit: cover;
+	width: 100vw;
+	height: 100vh;
+	filter: brightness(120%);
+	z-index: -1;
+	}
+
+a{
+	text-decoration: none;
+	text-align: center;
+	margin : 1rem;
+	margin-right: .25rem;
+	color: white;
+}
+.nav{
+	margin: .25rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.modal{
+	background-color: rgba(255,249,196,0.5);
+	padding: 4rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	display: flex;
+	flex-direction: column;
+	min-width: 10rem;
+	max-width: 15rem;
+}
+.modal>input{
+	border: 1px solid #263238;
+	margin: .25rem;
+	outline: none;
+	padding: .25rem;
+}
+input[type="submit"]{
+	padding: .5rem;
+	background: #263238;
+	color: white;
+	cursor: pointer;
+}
+</style>
+<body>
+<video src="videos/party.mp4" autoplay muted loop></video>
+<div class="nav">
+<a href="">Event Management System</a>
+<a href="/signup" >Sign up</a>
+</div>
+<form action="" class="modal">
+	<input type="text">
+	<input type="text">
+	<input type="submit" value="Log In">
+</form>
+<%- include('./partials/footer.ejs') %> 
+</body>
+</html>

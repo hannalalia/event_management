@@ -1,0 +1,83 @@
+#content{
+    padding: 1rem;
+    padding-top: 0;
+}
+.back{
+    color: #ffd600;
+}
+table{
+    border-collapse: collapse;
+    width: 80%;
+}
+thead{
+    background:#37474f;
+}
+th{
+    padding: .25rem;
+    color: white;
+    font-weight: normal;
+}
+tr>td{
+    text-align: center;
+}
+.delete{
+    text-decoration: none;
+    color: white;
+    padding-right: .30rem;
+    padding-left: .30rem;
+    border-radius: .25rem;
+    background: #e53935;
+    cursor: pointer;
+}
+.delete:hover{
+    background:#d32f2f;
+ 
+}
+
+#calendar{
+    width: 50%;
+    border: 1px dotted grey;
+}
+#calendar> h3{
+    text-align: center;
+    background-color: #37474f;
+    color: white;
+    margin: .25rem;
+    font-weight: normal;
+}
+#calendar>ul{
+    color:#263238;
+    list-style-type: square;
+}
+#controls{
+    display: flex;
+    justify-content: space-between;
+    margin: .5rem;
+}
+#controls>button{
+    background: #37474f;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+#search_bar{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+select,option{
+    padding: .10rem .10rem;
+}
+.btn-grey{
+    margin: 1rem;
+    border: none;
+    padding: .5rem;
+    color: white;
+    background: #37474f;
+    cursor: pointer;
+}
+.tbl-links{
+    color:#ffd600; 
+}

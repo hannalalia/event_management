@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<style>
+#guestContainer{
+    display: none;
+    flex-direction: column;
+    width: 20rem;}
+#guestContainer>input[type="text"]{
+    margin: .5em;
+}
+</style>
+<body>
+<%- include('../partials/admin_nav.ejs') %> 
+<div id="content">
+<a class="back" href="/events">&lt;&lt;</a>
+<h2>Add Event</h2>
+<form action="/events" method="POST">
+    <label for="name">Event Name:</label>
+    <input type="text" name="name" required>
+    <br>
+    <label for="date">Date:</label>
+    <input type="date" name="date" required>
+    <br>
+    <label for="location">Location:</label>
+    <input type="text" name="location" required>
+    <br>  
+    <label for="">Select Guests</label>
+    <select name="" id="">
+        <% guests.forEach(guest=>{ %>
+        <option value=""><%= guest.designation%>. <%= guest.firstname%> <%= guest.lastname%></option>
+        <% })%>
+    </select>
+    <br>
+
+   <!--  <label for="guest">Guests:</label>
+    <input type="text" name="" id="guest"><button id="add_guest">+</button>
+    <div id="guestContainer"></div>
+    <br> -->
+    <label for="status">Status:</label>
+    <select name="status" id="">
+        <option value="Completed">Completed</option>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Upcoming">Upcoming</option>
+    </select><br>
+    <label for="description">Description:</label><br>
+    <textarea name="description" cols="60" rows="10" required></textarea><br>
+    <input class="btn-grey" type="submit" value="Create Event"> 
+</form>
+</div>
+<%- include('../partials/footer.ejs') %>  
+<script>
+    const add_guest = document.querySelector('#add_guest');
+    const guest = document.querySelector('#guest');
+    const guestContainer = document.querySelector('#guestContainer');
+
+    add_guest.addEventListener('click', (e)=>{
+        e.preventDefault();
+        if(guest.value){
+        guestContainer.style.display = 'flex';
+        const x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+         x.setAttribute("value", guest.value);
+        guestContainer.appendChild(x)
+        }
+    });
+</script> 
+</body>
+</html>
